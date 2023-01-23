@@ -64,6 +64,15 @@ a {
     line-height: 0.5
 }
 
+
+.little3 {
+    font-size: 13px;
+    color: grey;
+    text-transform: capitalize;
+    line-height: 0.5;
+    
+}
+
 .h1 {
     font-size: 30px;
     color: rgb(34, 34, 142);
@@ -93,8 +102,6 @@ a {
 
 
 }
-
-
 
 .celsiusFer {
     color: grey;
