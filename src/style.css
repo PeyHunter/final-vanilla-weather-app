@@ -1,3 +1,4 @@
+
 img {
     display: block;
     margin: 0 auto;
@@ -47,7 +48,10 @@ a {
     ;
 }
 
-
+.source { 
+    text-align: center;
+    font-size: 12px;
+}
 .little1 {
     font-size: 13px;
     font-weight: bolder;
