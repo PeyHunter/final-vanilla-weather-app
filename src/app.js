@@ -39,98 +39,43 @@ let htmlDate = document.querySelector(".little1");
 htmlDate.innerHTML = `(${currentDay}) ${currentDate} ${currentMonth}, ${currentHour}:${currentMinute}`;
 
 
-
-
-// Display City Name
-
-
-let city = document.querySelector("#password-form");
-city.addEventListener("submit", handleSubmit);
+// Display name
 
 
 
+// Current Temp in searched City 
 
-//Get real temp
-
-function displayWeatherCondition(response) {
-  document.querySelector("#city").innerHTML = response.data.name;
-  document.querySelector("#cityTemp").innerHTML = Math.round(
-    response.data.main.temp
-  );
-
-  document.querySelector("#humidity").innerHTML = response.data.main.humidity;
-  document.querySelector("#description").innerHTML = response.data.weather[0].description;
-  document.querySelector("#wind").innerHTML = Math.round(response.data.wind.speed);
-  document.querySelector("#nightTemp").innerHTML = Math.round(response.data.main.temp_min);
-
-}
-function searchCity(city) {
-  let apiKey = "4c9b53e4f8f5eb00df5915bdca340605";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-  axios.get(apiUrl).then(displayWeatherCondition);
+function displayTemp(response) {
+  console.log(response.data)
+  
 }
 
-function handleSubmit(event) {
-  event.preventDefault();
-  let city = document.querySelector("#exampleInputPassword1").value;
-  searchCity(city);
-}
+let apiKey = `f9do3fd4558cd9a56ebf7d2bbtab042b`; 
+let apiUrl = `https://api.shecodes.io/weather/v1/current?query=Copenhagen&key=${apiKey}&units=metric`;
+axios.get(apiUrl).then(displayTemp)
 
 
 
-// current location button!
 
-//https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={APIkey}
-
-function currentTemp (response) {
-    let cityName = document.querySelector("#city");
-    let currentCityName = response.data.name;
-    cityName.innerHTML = currentCityName;
-
-    let mainTemp = document.querySelector("#cityTemp")
-    let currentTemp = Math.round(response.data.main.temp);
-    mainTemp.innerHTML = currentTemp;
-}
+// Humitity, wiind and so furth 
 
 
-function currentPosistion (position) {
-    let lat = position.coords.latitude;
-    let lon = position.coords.longitude;
-    let apiUrl =`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=4c9b53e4f8f5eb00df5915bdca340605`;
-    axios.get(apiUrl).then(currentTemp)
-}
 
-function currentPlace() {
-    navigator.geolocation.getCurrentPosition(currentPosistion)
-}
 
-let currentBotton = document.querySelector("#currentTemp")
-currentBotton.addEventListener("click", currentPlace)
+// Get current location temp
+
+
+//Cel and ferh 
 
 
 
 
 
-// FARENHEIT AND CELCIUS BUTTON
-
-function seeCel(event) {
-  event.preventDefault();
-  let cityTempC = document.querySelector("#cityTemp");
-  cityTempC.innerHTML = resonse.data.main.temp;   
-}
-
-let pressCel = document.querySelector("#celsius");
-pressCel.addEventListener("click", seeCel)
 
 
-function seeFer(event) {
-  event.preventDefault();
-  let cityTempF = document.querySelector("#cityTemp");
-  cityTempF.innerHTML = `66°F`;   
-}
 
-let pressFer = document.querySelector("#ferenheight");
-pressFer.addEventListener("click", seeFer);
+
+
 
 
 
