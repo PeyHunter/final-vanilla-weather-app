@@ -47,8 +47,11 @@ htmlDate.innerHTML = `(${currentDay}) ${currentDate} ${currentMonth}, ${currentH
 
 function displayTemp(response) {
   console.log(response.data)
-  let tempreture = document.querySelector("#cityTemp"); 
-  tempreture.innerHTML = Math.round(response.data.temperature.current)
+  let cityElement = document.querySelector("#city"); 
+ cityElement.innerHTML = (response.data.city)
+
+  let temperetureElement = document.querySelector("#cityTemp"); 
+  temperetureElement.innerHTML = Math.round(response.data.temperature.current)
   
 }
 
