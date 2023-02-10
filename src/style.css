@@ -10,6 +10,10 @@ a {
     text-decoration: none;
 }
 
+.btn {
+    background-color:rgb(34, 34, 142) ;
+}
+
 .container {
     max-width: 1000px;
     width: 100%;
