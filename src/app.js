@@ -68,11 +68,10 @@ descriptionElement.innerHTML = response.data.condition.description
 
    //Current Emoji
 
-let emojiElement = document.querySelector("#currentEmoji");
-let img = document.createElement("img");
-img.src = response.data.condition.icon_url;
-emojiElement.innerHTML = "";
-emojiElement.appendChild(img);
+
+let emojiElement = document.querySelector("#emojies1")
+emojiElement.innerHTML = response.data.condition.icon_url
+
 
 
 
