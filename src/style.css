@@ -91,7 +91,8 @@ a {
 }
 
 .emojies1 {
-    font-size: 25px;
+padding: 0px 100px 0px;
+    font-size: 50px;
     text-align: center;
 }
 
@@ -103,8 +104,6 @@ a {
 .celFer {
     padding-top: 5px;
     padding-left: 5px;
-
-
 }
 
 .celsiusFer {
@@ -114,6 +113,7 @@ a {
 }
 
 .nighttime {
+    
     color: grey;
     text-align: center;
     padding: 5px;
