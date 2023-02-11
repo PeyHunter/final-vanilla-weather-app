@@ -66,12 +66,23 @@ windElement.innerHTML = Math.round(response.data.wind.speed);
 let descriptionElement = document.querySelector("#description");
 descriptionElement.innerHTML = response.data.condition.description
 
+   //Current Emoji
+
+let emojiElement = document.querySelector("#currentEmoji");
+let img = document.createElement("img");
+img.src = response.data.condition.icon_url;
+emojiElement.innerHTML = "";
+emojiElement.appendChild(img);
+
+
+
   console.log(response.data)
   console.log(response.data.condition.description)
+  console.log(response.data.condition.icon_url)
 }
 
 let apiKey = `f9do3fd4558cd9a56ebf7d2bbtab042b`; 
-let apiUrl = `https://api.shecodes.io/weather/v1/current?query=Dubai&key=${apiKey}&units=metric`;
+let apiUrl = `https://api.shecodes.io/weather/v1/current?query=Tokyo&key=${apiKey}&units=metric`;
 axios.get(apiUrl).then(displayTemp)
 
 
