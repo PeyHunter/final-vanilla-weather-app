@@ -46,17 +46,32 @@ htmlDate.innerHTML = `(${currentDay}) ${currentDate} ${currentMonth}, ${currentH
 // Current Temp in searched City 
 
 function displayTemp(response) {
-  console.log(response.data)
+ 
+  //Searched City
   let cityElement = document.querySelector("#city"); 
- cityElement.innerHTML = (response.data.city)
-
+  cityElement.innerHTML = (response.data.city)
+  
+  //Current Temp
   let temperetureElement = document.querySelector("#cityTemp"); 
   temperetureElement.innerHTML = Math.round(response.data.temperature.current)
+
+    //Current Humidity
+  let humidityElement = document.querySelector("#humidity"); 
+  humidityElement.innerHTML = Math.round(response.data.temperature.humidity);
   
+   //Current Wind 
+let windElement = document.querySelector("#wind")
+windElement.innerHTML = Math.round(response.data.wind.speed);
+
+let descriptionElement = document.querySelector("#description");
+descriptionElement.innerHTML = response.data.condition.description
+
+  console.log(response.data)
+  console.log(response.data.condition.description)
 }
 
 let apiKey = `f9do3fd4558cd9a56ebf7d2bbtab042b`; 
-let apiUrl = `https://api.shecodes.io/weather/v1/current?query=Copenhagen&key=${apiKey}&units=metric`;
+let apiUrl = `https://api.shecodes.io/weather/v1/current?query=Dubai&key=${apiKey}&units=metric`;
 axios.get(apiUrl).then(displayTemp)
 
 
