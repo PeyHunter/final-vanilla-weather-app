@@ -1,16 +1,25 @@
-// DATE AND TIME
-let now = new Date();
+//time and date:
 
-let days = [
-  "Sun",
-  "Mon",
-  "Tue",
-  "Wen",
-  "Thu",
-  "Fri",
-  "Sat",
+function formatDate(timestamp) {
 
-];
+  let date = new Date(timestamp);
+  let hours = date.getHours();
+  let minutes = date.getMinutes();
+  if (minutes <10) {
+    minutes = `0${minutes}`
+  }
+
+  let days = [
+    "Sun",
+    "Mon",
+    "Tue",
+    "Wen",
+    "Thu",
+    "Fri",
+    "Sat",
+    
+  ];
+  let day = days[date.getDay()];
 
 let months = [
   "Jan",
@@ -27,67 +36,54 @@ let months = [
   "Dec",  
 ];
 
-
-let currentDay = days[now.getDay()];
-let currentMonth = months[now.getMonth()];
-let currentHour = now.getHours();
-let currentMinute = now.getMinutes();
-let currentDate = now.getDate();
-
-
-let htmlDate = document.querySelector(".little1");
-htmlDate.innerHTML = `(${currentDay}) ${currentDate} ${currentMonth}, ${currentHour}:${currentMinute}`;
-
+let month = months[date.getMonth()];
+  return `${month}, ${day} ${hours}:${minutes}`;
+}
 
 // Display name
 
 
-
-// Current Temp in searched City 
-
+// Current Temp in searched City & Humitity, wiind and so furth 
 function displayTemp(response) {
- 
   //Searched City
   let cityElement = document.querySelector("#city"); 
   cityElement.innerHTML = (response.data.city)
-  
   //Current Temp
   let temperetureElement = document.querySelector("#cityTemp"); 
   temperetureElement.innerHTML = Math.round(response.data.temperature.current)
 
-    //Current Humidity
+
   let humidityElement = document.querySelector("#humidity"); 
   humidityElement.innerHTML = Math.round(response.data.temperature.humidity);
+
+  let windElement = document.querySelector("#wind")
+  windElement.innerHTML = Math.round(response.data.wind.speed);
+
+  let descriptionElement = document.querySelector("#description");
+  descriptionElement.innerHTML = response.data.condition.description
+
+  let imgElement = document.querySelector("#currentIcon");
   
-   //Current Wind 
-let windElement = document.querySelector("#wind")
-windElement.innerHTML = Math.round(response.data.wind.speed);
+  let timeElement = document.querySelector("#time");
+  timeElement.innerHTML = formatDate(response.data.time *   1000);
 
-let descriptionElement = document.querySelector("#description");
-descriptionElement.innerHTML = response.data.condition.description
-
-   //Current Emoji
-
-
-let imgElement = document.querySelector("#currentIcon");
 imgElement.setAttribute("src", response.data.condition.icon_url);
-
-
-
 
   console.log(response.data)
   console.log(response.data.condition.description)
-  console.log(response.data.condition.icon_url)
 }
 
-let apiKey = `f9do3fd4558cd9a56ebf7d2bbtab042b`; 
-let apiUrl = `https://api.shecodes.io/weather/v1/current?query=Dubai&key=${apiKey}&units=metric`;
-axios.get(apiUrl).then(displayTemp)
+  let apiKey = `f9do3fd4558cd9a56ebf7d2bbtab042b`; 
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=Dubai&key=${apiKey}&units=metric`;
+  let city = document.querySelector("#exampleInputPassword1").value;
+  axios.get(apiUrl).then(displayTemp)
 
 
 
 
-// Humitity, wiind and so furth 
+
+///////////////////////////////////
+
 
 
 
