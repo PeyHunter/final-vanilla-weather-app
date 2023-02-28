@@ -8,7 +8,6 @@ function formatDate(timestamp) {
   if (minutes <10) {
     minutes = `0${minutes}`
   }
-
   let days = [
     "Sun",
     "Mon",
@@ -20,7 +19,6 @@ function formatDate(timestamp) {
     
   ];
   let day = days[date.getDay()];
-
 let months = [
   "Jan",
   "Feb",
@@ -42,7 +40,6 @@ let month = months[date.getMonth()];
 
 // Display name
 
-
 // Current Temp in searched City & Humitity, wiind and so furth 
 function displayTemp(response) {
   //Searched City
@@ -51,34 +48,42 @@ function displayTemp(response) {
   //Current Temp
   let temperetureElement = document.querySelector("#cityTemp"); 
   temperetureElement.innerHTML = Math.round(response.data.temperature.current)
-
-
+    
   let humidityElement = document.querySelector("#humidity"); 
   humidityElement.innerHTML = Math.round(response.data.temperature.humidity);
-
   let windElement = document.querySelector("#wind")
   windElement.innerHTML = Math.round(response.data.wind.speed);
-
   let descriptionElement = document.querySelector("#description");
   descriptionElement.innerHTML = response.data.condition.description
-
   let imgElement = document.querySelector("#currentIcon");
-  
   let timeElement = document.querySelector("#time");
   timeElement.innerHTML = formatDate(response.data.time *   1000);
 
 imgElement.setAttribute("src", response.data.condition.icon_url);
 
-  console.log(response.data)
-  console.log(response.data.condition.description)
+ 
 }
 
+//Search button Handle submit
+function search(city) {
   let apiKey = `f9do3fd4558cd9a56ebf7d2bbtab042b`; 
-  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=Dubai&key=${apiKey}&units=metric`;
-  let city = document.querySelector("#exampleInputPassword1").value;
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayTemp)
+  
+}
 
 
+function handleSubmit(event) {
+event.preventDefault(); 
+let searchCity = document.querySelector("#city-input")
+search(searchCity.value)
+console.log(searchCity.value) 
+}
+
+
+
+  let searchForm = document.querySelector("#search-form")
+  searchForm.addEventListener("submit", handleSubmit)
 
 
 
