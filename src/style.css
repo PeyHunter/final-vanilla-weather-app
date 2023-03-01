@@ -31,7 +31,7 @@ a {
     font-size: 40px;
     font-weight: bold;
 }
-#currentTemp {
+#currentLocationButton {
     font-size: 10px;
     padding: 5px 10px;
     margin-left:  0px;
@@ -42,7 +42,7 @@ a {
 
 }
 
-#currentTemp:hover {
+#currentLocationButton:hover {
     background-color: white;
     color: rgb(34, 34, 142);
     border: solid 1px;

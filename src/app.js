@@ -82,41 +82,76 @@ console.log(searchCity.value)
 let searchForm = document.querySelector("#search-form")
 searchForm.addEventListener("submit", handleSubmit)
 
-let tempElement = null;
+
+
+
+//Cel and ferh 
+
+let temperetureElement = null;
   
-function displayFahrenheit(event) {
-  event.preventDefault();
-  let tempElement = document.querySelector("#cityTemp");
-  let fahrenheitConversion = (tempElement * 9) / 5 + 32;
-  tempElement.innerHTML = Math.round(fahrenheitConversion);
+function displayFerTemp(event) {
+event.preventDefault();  
+alert("hellooo")
+let ferhenTempValue = (temperetureElement * 9) / 5 + 32
+temperetureElement = document.querySelector("#cityTemp");
+temperetureElement.innerHTML = Math.round(ferhenTempValue);
 }
 
-let fahrenheitLink = document.querySelector("#fahrenheit-link");
-fahrenheitLink.addEventListener("click", displayFahrenheit);
-
+let ferTemp = document.querySelector("#ferenheight-link");
+ferTemp.addEventListener("click", displayFerTemp);
 
 
 ///////////////////////////////////
 
 
-//Cel and ferh 
 
 
 
 // Get current location temp
 
 
+//CORRECT
+function currentTemp (response) {
+    let cityName = document.querySelector("#city");
+    let currentCityName = response.data.name;
+    cityName.innerHTML = currentCityName;
+
+    let mainTemp = document.querySelector("#cityTemp")
+    let currentTemp = Math.round(response.data.main.temp);
+    mainTemp.innerHTML = currentTemp;
+
+  let windElement = document.querySelector("#wind")
+  windElement.innerHTML = Math.round(response.data.wind.speed);
+ 
+  let humidityElement = document.querySelector("#humidity")
+  humidityElement.innerHTML = Math.round(response.data.main.humidity);
+  
+  let descriptionElement = document.querySelector("#description")
+  descriptionElement.innerHTML = response.data.weather[0].description;
+  
+   let timeElement = document.querySelector("#time");
+  timeElement.innerHTML = formatDate(response.data.time *   1000);
 
 
 
+  
+  console.log(response.data)
+}
 
 
+function currentPosistion (position) {
+    let lat = position.coords.latitude;
+    let lon = position.coords.longitude;
+    let apiUrl =`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=4c9b53e4f8f5eb00df5915bdca340605`;
+    axios.get(apiUrl).then(currentTemp)
+}
 
+function currentPlace() {
+    navigator.geolocation.getCurrentPosition(currentPosistion)
+}
 
-
-
-
-
+let currentBotton = document.querySelector("#currentLocationButton")
+currentBotton.addEventListener("click", currentPlace)
 
 
 
