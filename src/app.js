@@ -89,19 +89,6 @@ console.log(searchCity.value)
 
 //Cel and ferh 
 
-function displayFerTemp(event) {
-event.preventDefault();  
-alert("hellooo")
-}
-
-let ferTemp = document.querySelector("#ferenheight-link");
-ferTemp.addEventListener("click", displayFerTemp);
-
-
-
-let celTemp = document.querySelector("#celsius-link");
-
-
 
 
 // Get current location temp
