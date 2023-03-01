@@ -79,8 +79,20 @@ search(searchCity.value)
 console.log(searchCity.value) 
 }
 
-  let searchForm = document.querySelector("#search-form")
-  searchForm.addEventListener("submit", handleSubmit)
+let searchForm = document.querySelector("#search-form")
+searchForm.addEventListener("submit", handleSubmit)
+
+let tempElement = null;
+  
+function displayFahrenheit(event) {
+  event.preventDefault();
+  let tempElement = document.querySelector("#cityTemp");
+  let fahrenheitConversion = (tempElement * 9) / 5 + 32;
+  tempElement.innerHTML = Math.round(fahrenheitConversion);
+}
+
+let fahrenheitLink = document.querySelector("#fahrenheit-link");
+fahrenheitLink.addEventListener("click", displayFahrenheit);
 
 
 
