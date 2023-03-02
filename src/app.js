@@ -45,8 +45,7 @@ function displayTemp(response) {
   let imgElement = document.querySelector("#currentIcon");
   
   cityElement.innerHTML = response.data.city;
-  celciusTempreture = Math.round(response.data.temperature.current)
-  temperetureElement = Math.round(celciusTempreture);
+  temperetureElement = Math.round(response.data.temperature.current);
   tempereture.innerHTML = temperetureElement;
   humidityElement.innerHTML = Math.round(response.data.temperature.humidity);
   windElement.innerHTML = Math.round(response.data.wind.speed);
