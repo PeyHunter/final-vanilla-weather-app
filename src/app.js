@@ -45,7 +45,8 @@ function displayTemp(response) {
   let imgElement = document.querySelector("#currentIcon");
   
   cityElement.innerHTML = response.data.city;
-  temperetureElement = Math.round(response.data.temperature.current);
+  celciusTempreture = Math.round(response.data.temperature.current)
+  temperetureElement = Math.round(celciusTempreture);
   tempereture.innerHTML = temperetureElement;
   humidityElement.innerHTML = Math.round(response.data.temperature.humidity);
   windElement.innerHTML = Math.round(response.data.wind.speed);
@@ -118,8 +119,8 @@ let celciusTempreture = null;
 
 	function displayFerTemp(event) {
   event.preventDefault();
-  let ferhenTempValue = (temperetureElement * 9) / 5 + 32;
   let newTemperetureElement = document.querySelector("#cityTemp");
+  let ferhenTempValue = (temperetureElement * 9 / 5 ) + 32;
   newTemperetureElement.innerHTML = Math.round(ferhenTempValue);
 }
 
