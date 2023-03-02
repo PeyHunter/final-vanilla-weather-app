@@ -1,7 +1,4 @@
-//time and date:
-
 function formatDate(timestamp) {
-
   let date = new Date(timestamp);
   let hours = date.getHours();
   let minutes = date.getMinutes();
@@ -38,38 +35,30 @@ let month = months[date.getMonth()];
   return `${month}, ${day} ${hours}:${minutes}`;
 }
 
-// Display name
-
-// Current Temp in searched City & Humitity, wiind and so furth 
 function displayTemp(response) {
-  //Searched City
-  let cityElement = document.querySelector("#city"); 
-  cityElement.innerHTML = (response.data.city)
-  //Current Temp
-  let temperetureElement = document.querySelector("#cityTemp"); 
-  temperetureElement.innerHTML = Math.round(response.data.temperature.current)
-    
-  let humidityElement = document.querySelector("#humidity"); 
-  humidityElement.innerHTML = Math.round(response.data.temperature.humidity);
-  let windElement = document.querySelector("#wind")
-  windElement.innerHTML = Math.round(response.data.wind.speed);
+  let cityElement = document.querySelector("#city");
+  let tempereture = document.querySelector("#cityTemp");
+  let humidityElement = document.querySelector("#humidity");
+  let windElement = document.querySelector("#wind");
   let descriptionElement = document.querySelector("#description");
-  descriptionElement.innerHTML = response.data.condition.description
-  let imgElement = document.querySelector("#currentIcon");
   let timeElement = document.querySelector("#time");
-  timeElement.innerHTML = formatDate(response.data.time *   1000);
-
-imgElement.setAttribute("src", response.data.condition.icon_url);
-
- 
+  let imgElement = document.querySelector("#currentIcon");
+  
+  cityElement.innerHTML = response.data.city;
+  celciusTempreture = Math.round(response.data.temperature.current)
+  temperetureElement = Math.round(celciusTempreture);
+  tempereture.innerHTML = temperetureElement;
+  humidityElement.innerHTML = Math.round(response.data.temperature.humidity);
+  windElement.innerHTML = Math.round(response.data.wind.speed);
+  descriptionElement.innerHTML = response.data.condition.description;
+  timeElement.innerHTML = formatDate(response.data.time * 1000);
+  imgElement.setAttribute("src", response.data.condition.icon_url);
 }
 
-//Search button Handle submit
 function search(city) {
   let apiKey = `f9do3fd4558cd9a56ebf7d2bbtab042b`; 
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayTemp)
-  
 }
 
 function handleSubmit(event) {
@@ -82,62 +71,29 @@ console.log(searchCity.value)
 let searchForm = document.querySelector("#search-form")
 searchForm.addEventListener("submit", handleSubmit)
 
-
-
-
-//Cel and ferh 
-
-let temperetureElement = null;
-  
-function displayFerTemp(event) {
-event.preventDefault();  
-alert("hellooo")
-let ferhenTempValue = (temperetureElement * 9) / 5 + 32
-temperetureElement = document.querySelector("#cityTemp");
-temperetureElement.innerHTML = Math.round(ferhenTempValue);
-}
-
-let ferTemp = document.querySelector("#ferenheight-link");
-ferTemp.addEventListener("click", displayFerTemp);
-
-
-///////////////////////////////////
-
-
-
-
-
-// Get current location temp
-
-
-//CORRECT
+//GeoLocation
 function currentTemp (response) {
     let cityName = document.querySelector("#city");
+    let mainTemp = document.querySelector("#cityTemp")
+    let windElement = document.querySelector("#wind")
+    let humidityElement = document.querySelector("#humidity")
+    let descriptionElement = document.querySelector("#description")
+    let imgElement = document.querySelector("#currentIcon");
+    let timeElement = document.querySelector("#time");
+    
+    
     let currentCityName = response.data.name;
     cityName.innerHTML = currentCityName;
-
-    let mainTemp = document.querySelector("#cityTemp")
     let currentTemp = Math.round(response.data.main.temp);
     mainTemp.innerHTML = currentTemp;
+    windElement.innerHTML = Math.round(response.data.wind.speed);
+    humidityElement.innerHTML = Math.round(response.data.main.humidity);
+    descriptionElement.innerHTML = response.data.weather[0].description; 
+    timeElement.innerHTML = formatDate(response.data.time * 1000);
+    imgElement.setAttribute("src", response.data.weather[0].icon);
 
-  let windElement = document.querySelector("#wind")
-  windElement.innerHTML = Math.round(response.data.wind.speed);
- 
-  let humidityElement = document.querySelector("#humidity")
-  humidityElement.innerHTML = Math.round(response.data.main.humidity);
-  
-  let descriptionElement = document.querySelector("#description")
-  descriptionElement.innerHTML = response.data.weather[0].description;
-  
-   let timeElement = document.querySelector("#time");
-  timeElement.innerHTML = formatDate(response.data.time *   1000);
-
-
-
-  
   console.log(response.data)
 }
-
 
 function currentPosistion (position) {
     let lat = position.coords.latitude;
@@ -148,18 +104,34 @@ function currentPosistion (position) {
 
 function currentPlace() {
     navigator.geolocation.getCurrentPosition(currentPosistion)
+  }
+  
+  let currentBotton = document.querySelector("#currentLocationButton")
+  currentBotton.addEventListener("click", currentPlace)
+  navigator.geolocation.getCurrentPosition(currentPosistion)
+
+
+
+
+//Celsius & Farhenheit
+let temperetureElement = null;
+let celciusTempreture = null;
+
+	function displayFerTemp(event) {
+  event.preventDefault();
+  let ferhenTempValue = (temperetureElement * 9) / 5 + 32;
+  let newTemperetureElement = document.querySelector("#cityTemp");
+  newTemperetureElement.innerHTML = Math.round(ferhenTempValue);
 }
 
-let currentBotton = document.querySelector("#currentLocationButton")
-currentBotton.addEventListener("click", currentPlace)
+function displayCelTemp(event) {
+  event.preventDefault();
+  let newTemperetureElement = document.querySelector("#cityTemp");
+ newTemperetureElement.innerHTML = Math.round(celciusTempreture);
+}
 
 
-
-
-//In your project, when a user searches for a city (example: New York), it should display the name of the city on the result page and the current temperature of the city.
-
-
-//Please note: there's no need to include a temperature conversion at the moment. This will be taught later on in the course.
-
-//🙀 Bonus point:
-//Add a Current Location button. When clicking on it, it uses the Geolocation API to get your GPS coordinates and display and the city and current temperature using the OpenWeather API.
+let celTemp = document.querySelector("#celsius-link");
+celTemp.addEventListener("click", displayCelTemp);
+let ferTemp = document.querySelector("#ferenheight-link");
+ferTemp.addEventListener("click", displayFerTemp);
