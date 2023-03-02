@@ -55,8 +55,13 @@ a {
     margin-left: 50px;
     font-size: 13px;
     line-height: 0.5;
+    color: black;
 }
 
+.celFerConverter .active {
+    color: black;
+    cursor: default;
+}
 .source { 
     text-align: center;
     font-size: 12px;

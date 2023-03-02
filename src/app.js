@@ -122,16 +122,21 @@ let celciusTempreture = null;
   let newTemperetureElement = document.querySelector("#cityTemp");
   let ferhenTempValue = (temperetureElement * 9 / 5 ) + 32;
   newTemperetureElement.innerHTML = Math.round(ferhenTempValue);
+  celLink.classList.remove("active")
+  ferLink.classList.add("active")
 }
 
 function displayCelTemp(event) {
   event.preventDefault();
   let newTemperetureElement = document.querySelector("#cityTemp");
- newTemperetureElement.innerHTML = Math.round(celciusTempreture);
+  newTemperetureElement.innerHTML = Math.round(celciusTempreture);
+  ferLink.classList.remove("active")
+  celLink.classList.add("active")
+  
 }
 
 
-let celTemp = document.querySelector("#celsius-link");
-celTemp.addEventListener("click", displayCelTemp);
-let ferTemp = document.querySelector("#ferenheight-link");
-ferTemp.addEventListener("click", displayFerTemp);
+let celLink = document.querySelector("#celsius-link");
+celLink.addEventListener("click", displayCelTemp);
+let ferLink = document.querySelector("#ferenheight-link");
+ferLink.addEventListener("click", displayFerTemp);
