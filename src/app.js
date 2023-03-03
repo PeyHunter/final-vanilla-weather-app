@@ -78,33 +78,29 @@ searchForm.addEventListener("submit", handleSubmit)
 //GeoLocation
 function currentTemp (response) {
    console.log(response.data);
-    let cityName = document.querySelector("#city");
-    let mainTemp = document.querySelector("#cityTemp")
-    let windElement = document.querySelector("#wind")
-    let humidityElement = document.querySelector("#humidity")
-    let descriptionElement = document.querySelector("#description")
-    let timeElement = document.querySelector("#time");
-    
-    
-    let currentCityName = response.data.name;
-    cityName.innerHTML = currentCityName;
-    let currentTemp = Math.round(response.data.main.temp);
-    mainTemp.innerHTML = currentTemp;
-    celciusTempreture = Math.round(response.data.main.temp);
-    windElement.innerHTML = Math.round(response.data.wind.speed);
-    humidityElement.innerHTML = Math.round(response.data.main.humidity);
-    descriptionElement.innerHTML = response.data.weather[0].description; 
-    timeElement.innerHTML = formatDate(response.data.dt * 1000);
-    
- 
-
-  console.log(response.data);
+   let cityElement = document.querySelector("#city");
+  let tempereture = document.querySelector("#cityTemp");
+  let humidityElement = document.querySelector("#humidity");
+  let windElement = document.querySelector("#wind");
+  let descriptionElement = document.querySelector("#description");
+  let timeElement = document.querySelector("#time");
+  let iconElement = document.querySelector("#currentIcon");
+  
+  cityElement.innerHTML = response.data.city;
+  celciusTempreture = Math.round(response.data.temperature)
+  temperetureElement = Math.round(celciusTempreture);
+  tempereture.innerHTML = temperetureElement;
+  humidityElement.innerHTML = Math.round(response.data.temperature.humidity);
+  windElement.innerHTML = Math.round(response.data.wind.speed);
+  descriptionElement.innerHTML = response.data.condition.description;
+  timeElement.innerHTML = formatDate(response.data.time * 1000);
+  iconElement.setAttribute("src", response.data.condition.icon_url);
 }
 
 function currentPosistion (position) {
     let lat = position.coords.latitude;
     let lon = position.coords.longitude;
-    let apiUrl =`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=4c9b53e4f8f5eb00df5915bdca340605`;
+    let apiUrl =`https://api.shecodes.io/weather/v1/forecast?lon=${lon}&lat=${lat}&key=f9do3fd4558cd9a56ebf7d2bbtab042b`;
     axios.get(apiUrl).then(currentTemp)
 }
 
