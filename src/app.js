@@ -55,7 +55,7 @@ function displayTemp(response) {
   iconElement.setAttribute("src", response.data.condition.icon_url);
 }
 
-function search(city) {
+function search(Copenhagen) {
   let apiKey = `f9do3fd4558cd9a56ebf7d2bbtab042b`; 
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayTemp)
@@ -79,8 +79,8 @@ function currentTemp (response) {
     let windElement = document.querySelector("#wind")
     let humidityElement = document.querySelector("#humidity")
     let descriptionElement = document.querySelector("#description")
-   let iconElement = document.querySelector("#currentIcon");
     let timeElement = document.querySelector("#time");
+    let imgElement = document.querySelector("#currentIcon");
     
     
     let currentCityName = response.data.name;
@@ -92,9 +92,8 @@ function currentTemp (response) {
     humidityElement.innerHTML = Math.round(response.data.main.humidity);
     descriptionElement.innerHTML = response.data.weather[0].description; 
     timeElement.innerHTML = formatDate(response.data.dt * 1000);
-  iconElement.setAttribute(
-    "src",
-    `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`);
+    imgElement.setAttribute("src", response.data.weather[0].icon);
+ 
 
   console.log(response.data);
 }
