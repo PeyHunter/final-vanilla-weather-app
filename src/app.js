@@ -55,11 +55,15 @@ function displayTemp(response) {
   iconElement.setAttribute("src", response.data.condition.icon_url);
 }
 
+function search(city = "Copenhagen") {
+  let apiKey = `f9do3fd4558cd9a56ebf7d2bbtab042b`; 
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayTemp)
+}
 
-let apiKey = `f9do3fd4558cd9a56ebf7d2bbtab042b`; 
-let apiUrl = `https://api.shecodes.io/weather/v1/current?query=Copenhagen&key=${apiKey}&units=metric`;
-axios.get(apiUrl).then(displayTemp)
-
+window.addEventListener("load", () => {
+  search();
+});
 
 function handleSubmit(event) {
 event.preventDefault(); 
