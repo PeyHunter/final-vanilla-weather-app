@@ -95,6 +95,7 @@ function currentTemp (response) {
     humidityElement.innerHTML = Math.round(response.data.main.humidity);
     descriptionElement.innerHTML = response.data.weather[0].description; 
     timeElement.innerHTML = formatDate(response.data.dt * 1000);
+    
  
 
   console.log(response.data);
