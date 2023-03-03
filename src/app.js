@@ -42,7 +42,7 @@ function displayTemp(response) {
   let windElement = document.querySelector("#wind");
   let descriptionElement = document.querySelector("#description");
   let timeElement = document.querySelector("#time");
-  let imgElement = document.querySelector("#currentIcon");
+  let iconElement = document.querySelector("#currentIcon");
   
   cityElement.innerHTML = response.data.city;
   celciusTempreture = Math.round(response.data.temperature.current)
@@ -52,7 +52,7 @@ function displayTemp(response) {
   windElement.innerHTML = Math.round(response.data.wind.speed);
   descriptionElement.innerHTML = response.data.condition.description;
   timeElement.innerHTML = formatDate(response.data.time * 1000);
-  imgElement.setAttribute("src", response.data.condition.icon_url);
+  iconElement.setAttribute("src", response.data.condition.icon_url);
 }
 
 function search(city) {
@@ -73,12 +73,13 @@ searchForm.addEventListener("submit", handleSubmit)
 
 //GeoLocation
 function currentTemp (response) {
+   console.log(response.data);
     let cityName = document.querySelector("#city");
     let mainTemp = document.querySelector("#cityTemp")
     let windElement = document.querySelector("#wind")
     let humidityElement = document.querySelector("#humidity")
     let descriptionElement = document.querySelector("#description")
-    let imgElement = document.querySelector("#currentIcon");
+   let iconElement = document.querySelector("#currentIcon");
     let timeElement = document.querySelector("#time");
     
     
@@ -86,13 +87,16 @@ function currentTemp (response) {
     cityName.innerHTML = currentCityName;
     let currentTemp = Math.round(response.data.main.temp);
     mainTemp.innerHTML = currentTemp;
+    celciusTempreture = Math.round(response.data.main.temp);
     windElement.innerHTML = Math.round(response.data.wind.speed);
     humidityElement.innerHTML = Math.round(response.data.main.humidity);
     descriptionElement.innerHTML = response.data.weather[0].description; 
-    timeElement.innerHTML = formatDate(response.data.time * 1000);
-    imgElement.setAttribute("src", response.data.weather[0].icon);
+    timeElement.innerHTML = formatDate(response.data.dt * 1000);
+  iconElement.setAttribute(
+    "src",
+    `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`);
 
-  console.log(response.data)
+  console.log(response.data);
 }
 
 function currentPosistion (position) {
