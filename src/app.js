@@ -43,10 +43,9 @@ function displayTemp(response) {
   let descriptionElement = document.querySelector("#description");
   let timeElement = document.querySelector("#time");
   let iconElement = document.querySelector("#currentIcon");
-  
   cityElement.innerHTML = response.data.city;
-  celciusTempreture = Math.round(response.data.temperature.current)
-  temperetureElement = Math.round(celciusTempreture);
+  celciusTemperature = Math.round(response.data.temperature.current);
+  temperetureElement = Math.round(celciusTemperature);
   tempereture.innerHTML = temperetureElement;
   humidityElement.innerHTML = Math.round(response.data.temperature.humidity);
   windElement.innerHTML = Math.round(response.data.wind.speed);
@@ -77,8 +76,7 @@ searchForm.addEventListener("submit", handleSubmit)
 
 //GeoLocation
 function currentTemp (response) {
-   console.log(response.data);
-   let cityElement = document.querySelector("#city");
+  let cityElement = document.querySelector("#city");
   let tempereture = document.querySelector("#cityTemp");
   let humidityElement = document.querySelector("#humidity");
   let windElement = document.querySelector("#wind");
@@ -87,22 +85,27 @@ function currentTemp (response) {
   let iconElement = document.querySelector("#currentIcon");
   
   cityElement.innerHTML = response.data.city;
-  celciusTempreture = Math.round(response.data.temperature)
-  temperetureElement = Math.round(celciusTempreture);
+  celciusTemperature = Math.round(response.data.temperature.current)
+  temperetureElement = Math.round(celciusTemperature);
+
   tempereture.innerHTML = temperetureElement;
   humidityElement.innerHTML = Math.round(response.data.temperature.humidity);
   windElement.innerHTML = Math.round(response.data.wind.speed);
   descriptionElement.innerHTML = response.data.condition.description;
   timeElement.innerHTML = formatDate(response.data.time * 1000);
   iconElement.setAttribute("src", response.data.condition.icon_url);
+
+
 }
 
-function currentPosistion (position) {
-    let lat = position.coords.latitude;
-    let lon = position.coords.longitude;
-    let apiUrl =`https://api.shecodes.io/weather/v1/forecast?lon=${lon}&lat=${lat}&key=f9do3fd4558cd9a56ebf7d2bbtab042b`;
-    axios.get(apiUrl).then(currentTemp)
+function currentPosistion(position) {
+  let lat = position.coords.latitude;
+  let lon = position.coords.longitude;
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?lon=${lon}&lat=${lat}&key=f9do3fd4558cd9a56ebf7d2bbtab042b`;
+  axios.get(apiUrl).then(currentTemp);
 }
+
+
 
 function currentPlace() {
     navigator.geolocation.getCurrentPosition(currentPosistion)
@@ -113,11 +116,9 @@ function currentPlace() {
   navigator.geolocation.getCurrentPosition(currentPosistion)
 
 
-
-
 //Celsius & Farhenheit
 let temperetureElement = null;
-let celciusTempreture = null;
+let celciusTemperature = null;
 
 	function displayFerTemp(event) {
   event.preventDefault();
@@ -131,10 +132,9 @@ let celciusTempreture = null;
 function displayCelTemp(event) {
   event.preventDefault();
   let newTemperetureElement = document.querySelector("#cityTemp");
-  newTemperetureElement.innerHTML = Math.round(celciusTempreture);
+  newTemperetureElement.innerHTML = Math.round(celciusTemperature);
   ferLink.classList.remove("active")
   celLink.classList.add("active")
-  
 }
 
 
