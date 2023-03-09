@@ -35,37 +35,8 @@ let month = months[date.getMonth()];
   return `${month}, ${day} ${hours}:${minutes}`;
 }
 
-function displayForcast() {
-  let forcastElement = document.querySelector("#forcast");
-  let days = ["Thu", "Fri", "Sat", "Sun", "Mon"];
-  
-  let forecastHTML = `<div class="row">`;
-  days.forEach(function(day) {
-    forecastHTML = forecastHTML + `
-            <div class="col">
-              <p class="weekdaysDate">${day}</p>
-              <img
-                src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/rain-day.png"
-                alt=""
-                class="forecastEmojies"
-              />
-              <div class="forecastTemp">
-                <span class="max"> 12° | </span>
-                <span class="min"> 15°</span>
-              </div>
-              <p class="note">Rainy all day</p>
-            </div>
-          
-`;
-  })
-forecastHTML = forecastHTML + `<div/>`
-forcastElement.innerHTML = forecastHTML 
-console.log(forecastHTML)
-}
 
-
-
-
+//get curren Temp + city name
 function displayTemp(response) {
   let cityElement = document.querySelector("#city");
   let tempereture = document.querySelector("#cityTemp");
@@ -83,7 +54,7 @@ function displayTemp(response) {
   descriptionElement.innerHTML = response.data.condition.description;
   timeElement.innerHTML = formatDate(response.data.time * 1000);
   iconElement.setAttribute("src", response.data.condition.icon_url);
-  
+  getForecast(response.data.city);
 }
 
 function search(city = "Copenhagen") {
@@ -106,7 +77,11 @@ console.log(searchCity.value)
 let searchForm = document.querySelector("#search-form")
 searchForm.addEventListener("submit", handleSubmit)
 
-//GeoLocation
+
+
+
+
+//GeoLocation button
 function currentTemp (response) {
   let cityElement = document.querySelector("#city");
   let tempereture = document.querySelector("#cityTemp");
@@ -126,8 +101,6 @@ function currentTemp (response) {
   descriptionElement.innerHTML = response.data.condition.description;
   timeElement.innerHTML = formatDate(response.data.time * 1000);
   iconElement.setAttribute("src", response.data.condition.icon_url);
-
-
 }
 
 function currentPosistion(position) {
@@ -136,8 +109,6 @@ function currentPosistion(position) {
   let apiUrl = `https://api.shecodes.io/weather/v1/current?lon=${lon}&lat=${lat}&key=f9do3fd4558cd9a56ebf7d2bbtab042b`;
   axios.get(apiUrl).then(currentTemp);
 }
-
-
 
 function currentPlace() {
     navigator.geolocation.getCurrentPosition(currentPosistion)
@@ -148,10 +119,53 @@ function currentPlace() {
   navigator.geolocation.getCurrentPosition(currentPosistion)
 
 
+
+
+
+  //Forecast
+function displayForcast(response) {
+console.log(response.data.daily)
+
+  let forcastElement = document.querySelector("#forcast");
+  let days = ["Thu", "Fri", "Sat", "Sun", "Mon"];
+  
+  let forecastHTML = `<div class="row">`;
+  days.forEach(function(day) {
+    forecastHTML = forecastHTML + `
+            <div class="col">
+              <p class="weekdaysDate">${day}</p>
+              <img
+                src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/rain-day.png"
+                alt=""
+                class="forecastEmojies"
+              />
+              <div class="forecastTemp">
+                <span class="max"> 12° | </span>
+                <span class="min"> 15°</span>
+              </div>
+              <p class="note">Rainy all day</p>
+            </div>
+`;
+  })
+forecastHTML = forecastHTML + `<div/>`
+forcastElement.innerHTML = forecastHTML 
+}
+
+function getForecast(city = "Copenhagen") {
+  let apiKey = `f9do3fd4558cd9a56ebf7d2bbtab042b`; 
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForcast);
+  console.log(city)
+}
+
+
+
+
+
+
 //Celsius & Farhenheit
 let temperetureElement = null;
 let celciusTemperature = null;
-displayForcast();
 
 	function displayFerTemp(event) {
   event.preventDefault();
