@@ -123,33 +123,57 @@ function currentPlace() {
 
 
   //Forecast
+
+function formatTime(timestamp) {
+let date = new Date(timestamp * 1000)
+let day = date.getDay();
+let days = [
+    "Sun",
+    "Mon",
+    "Tue",
+    "Wen",
+    "Thu",
+    "Fri",
+    "Sat",
+    
+  ];
+
+
+return days[day]  
+}
+
 function displayForcast(response) {
-console.log(response.data.daily)
+  console.log(response.data.daily);
+let forecast = response.data.daily;
 
   let forcastElement = document.querySelector("#forcast");
-  let days = ["Thu", "Fri", "Sat", "Sun", "Mon"];
   
   let forecastHTML = `<div class="row">`;
-  days.forEach(function(day) {
+  forecast.forEach(function(forecastDay, index) {
+    if (index < 6) { 
     forecastHTML = forecastHTML + `
             <div class="col">
-              <p class="weekdaysDate">${day}</p>
+              <p class="weekdaysDate">${formatTime(forecastDay.time)}</p>
+             
               <img
-                src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/rain-day.png"
+                src="${forecastDay.condition.icon_url}"
                 alt=""
                 class="forecastEmojies"
               />
               <div class="forecastTemp">
-                <span class="max"> 12° | </span>
-                <span class="min"> 15°</span>
+                <span class="max"> ${Math.round(forecastDay.temperature.maximum)}° | </span>
+                <span class="min"> ${Math.round(forecastDay.temperature.minimum)}°</span>
               </div>
-              <p class="note">Rainy all day</p>
+              <p class="note">${forecastDay.condition.description}</p>
             </div>
 `;
+}
   })
 forecastHTML = forecastHTML + `<div/>`
 forcastElement.innerHTML = forecastHTML 
 }
+
+
 
 function getForecast(city = "Copenhagen") {
   let apiKey = `f9do3fd4558cd9a56ebf7d2bbtab042b`; 
