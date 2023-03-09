@@ -71,7 +71,6 @@ function handleSubmit(event) {
 event.preventDefault(); 
 let searchCity = document.querySelector("#city-input")
 search(searchCity.value)
-console.log(searchCity.value) 
 }
 
 let searchForm = document.querySelector("#search-form")
@@ -143,7 +142,6 @@ return days[day]
 }
 
 function displayForcast(response) {
-  console.log(response.data.daily);
 let forecast = response.data.daily;
 
   let forcastElement = document.querySelector("#forcast");
@@ -179,38 +177,4 @@ function getForecast(city = "Copenhagen") {
   let apiKey = `f9do3fd4558cd9a56ebf7d2bbtab042b`; 
   let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayForcast);
-  console.log(city)
 }
-
-
-
-
-
-
-//Celsius & Farhenheit
-let temperetureElement = null;
-let celciusTemperature = null;
-
-	function displayFerTemp(event) {
-  event.preventDefault();
-  let newTemperetureElement = document.querySelector("#cityTemp");
-  let ferhenTempValue = (temperetureElement * 9 / 5 ) + 32;
-  newTemperetureElement.innerHTML = Math.round(ferhenTempValue);
-  celLink.classList.remove("active")
-  ferLink.classList.add("active")
-}
-
-function displayCelTemp(event) {
-  event.preventDefault();
-  let newTemperetureElement = document.querySelector("#cityTemp");
-  newTemperetureElement.innerHTML = Math.round(celciusTemperature);
-  ferLink.classList.remove("active")
-  celLink.classList.add("active")
-}
-
-
-let celLink = document.querySelector("#celsius-link");
-celLink.addEventListener("click", displayCelTemp);
-let ferLink = document.querySelector("#ferenheight-link");
-ferLink.addEventListener("click", displayFerTemp);
-

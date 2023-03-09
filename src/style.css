@@ -35,12 +35,13 @@ a {
     font-size: 10px;
     padding: 5px 10px;
     margin-left:  0px;
-    border-radius: 2pc;
+    border-radius: 9px;
     background-color: rgb(34, 34, 142);
     color: white;
     border: none;
 
 }
+
 
 #currentLocationButton:hover {
     background-color: white;
@@ -49,6 +50,8 @@ a {
     border-color: rgb(34, 34, 142);
     ;
 }
+
+
 
 .celFerConverter {
     color: rgb(143, 143, 143);
@@ -158,7 +161,7 @@ display: block;
 }
 
 .note {
-    font-size: 9px;
+    font-size: 12px;
     color: grey;
     text-align: center;
     margin: 40px auto auto 0;
