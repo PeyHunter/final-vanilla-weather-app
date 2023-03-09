@@ -35,6 +35,37 @@ let month = months[date.getMonth()];
   return `${month}, ${day} ${hours}:${minutes}`;
 }
 
+function displayForcast() {
+  let forcastElement = document.querySelector("#forcast");
+  let days = ["Thu", "Fri", "Sat", "Sun", "Mon"];
+  
+  let forecastHTML = `<div class="row">`;
+  days.forEach(function(day) {
+    forecastHTML = forecastHTML + `
+            <div class="col">
+              <p class="weekdaysDate">${day}</p>
+              <img
+                src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/rain-day.png"
+                alt=""
+                class="forecastEmojies"
+              />
+              <div class="forecastTemp">
+                <span class="max"> 12° | </span>
+                <span class="min"> 15°</span>
+              </div>
+              <p class="note">Rainy all day</p>
+            </div>
+          
+`;
+  })
+forecastHTML = forecastHTML + `<div/>`
+forcastElement.innerHTML = forecastHTML 
+console.log(forecastHTML)
+}
+
+
+
+
 function displayTemp(response) {
   let cityElement = document.querySelector("#city");
   let tempereture = document.querySelector("#cityTemp");
@@ -52,6 +83,7 @@ function displayTemp(response) {
   descriptionElement.innerHTML = response.data.condition.description;
   timeElement.innerHTML = formatDate(response.data.time * 1000);
   iconElement.setAttribute("src", response.data.condition.icon_url);
+  
 }
 
 function search(city = "Copenhagen") {
@@ -119,6 +151,7 @@ function currentPlace() {
 //Celsius & Farhenheit
 let temperetureElement = null;
 let celciusTemperature = null;
+displayForcast();
 
 	function displayFerTemp(event) {
   event.preventDefault();
