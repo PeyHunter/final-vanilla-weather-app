@@ -1,7 +1,10 @@
-
+body {
+    background-color: rgb(97, 97, 97);
+}
 a {
     text-decoration: none;
 }
+
 
 .btn {
     background-color:rgb(34, 34, 142) ;
